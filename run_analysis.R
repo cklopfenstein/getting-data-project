@@ -40,5 +40,15 @@ colnames(X_all)[2] <- "activity"
 X_all <- X_all[,grepl("((mean|std)\\.|subjectID|activity)", colnames(X_all))]
 # group measurement data by subject ID and activity
 X_all <- group_by(X_all, subjectID, activity)
+#X_all <- arrange(X_all, subjectID, activity)
+# this might be correct - result is 35 rows of 68 values
+# each subject appears, but not all activities for each subject
+means <- X_all %>% group_by(subjectID, activity)
+result <- (means %>% summarise_each(funs(mean)))
+# or
+#result <- aggregate(X_all[,3:68], list(X_all$subjectID, X_all$activity), mean)
+# then arrange by subjectID, activity
+# but this replaces column labels subjectID, activity with Group.1, Group.2
 #
-# write.table("UCI-HAR-tidy-data.txt", row.name=FALSE)
+# write out the resulting table
+write.table(result, file = "UCI-HAR-tidy-data.txt", row.names = FALSE)
