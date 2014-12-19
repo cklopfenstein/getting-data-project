@@ -1,6 +1,9 @@
 # run_analysis.R
 # Process raw data from UCI HAR into tidy dataset
-setwd("~/Devel/R/DataScience/GettingData/Project/GettingDataProject")  # need to change this eventually
+#
+# for local use
+#setwd("~/Devel/R/DataScience/GettingData/Project/GettingDataProject")
+#
 # read input files, using data.table package
 library(data.table)
 library(dplyr)
@@ -19,6 +22,7 @@ rm(X_train)
 y_all <- rbind(y_test, y_train)
 rm(y_test)
 rm(y_train)
+#
 subject_all <- rbind(subject_test, subject_train)
 rm(subject_test)
 rm(subject_train)
@@ -40,15 +44,10 @@ colnames(X_all)[2] <- "activity"
 X_all <- X_all[,grepl("((mean|std)\\.|subjectID|activity)", colnames(X_all))]
 # group measurement data by subject ID and activity
 X_all <- group_by(X_all, subjectID, activity)
-#X_all <- arrange(X_all, subjectID, activity)
 # this might be correct - result is 35 rows of 68 values
 # each subject appears, but not all activities for each subject
 means <- X_all %>% group_by(subjectID, activity)
 result <- (means %>% summarise_each(funs(mean)))
-# or
-#result <- aggregate(X_all[,3:68], list(X_all$subjectID, X_all$activity), mean)
-# then arrange by subjectID, activity
-# but this replaces column labels subjectID, activity with Group.1, Group.2
 #
 # write out the resulting table
 write.table(result, file = "UCI-HAR-tidy-data.txt", row.names = FALSE)
