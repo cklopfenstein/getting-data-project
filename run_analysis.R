@@ -15,10 +15,6 @@ subject_train <- read.table("subject_train.txt", header = FALSE, sep ="")
 X_all <- rbind(X_test, X_train)
 rm(X_test)
 rm(X_train)
-# rename columns of X_all with meaningful names
-features <- read.table("features.txt", header = FALSE, sep ="")
-feature_names <- make.names(features[,2])
-colnames(X_all) <- feature_names
 #
 y_all <- rbind(y_test, y_train)
 rm(y_test)
@@ -26,16 +22,23 @@ rm(y_train)
 subject_all <- rbind(subject_test, subject_train)
 rm(subject_test)
 rm(subject_train)
-#
+# rename columns of X_all with meaningful names
+features <- read.table("features.txt", header = FALSE, sep ="")
+feature_names <- make.names(features[,2])
+colnames(X_all) <- feature_names
+# read the activity labels into a vector
 labels <- read.table("activity_labels.txt", header = FALSE, sep ="")
-# something like this
-#test_labels <- left_join(labels, y_test)
-#train_labels <- left_join(labels, y_train)
+# convert list of activity numbers to labels
 labels_all <- left_join(labels, y_all)
-# and something like this
+# add subject IDs and activity labels to the table of measurements
 X_all <- cbind(labels_all[2], X_all)
 X_all <- cbind(subject_all, X_all)
 colnames(X_all)[1] <- "subjectID"
 colnames(X_all)[2] <- "activity"
-# select the columns we want
+# select the columns we want: means (not meanFreq) and standard deviations,
+# plus the subject ID and activity label
+X_all <- X_all[,grepl("((mean|std)\\.|subjectID|activity)", colnames(X_all))]
+# group measurement data by subject ID and activity
+X_all <- group_by(X_all, subjectID, activity)
+#
 # write.table("UCI-HAR-tidy-data.txt", row.name=FALSE)
