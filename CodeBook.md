@@ -5,12 +5,14 @@ Data Dictionary for UCI-HAR-tidy-data.txt file
 
 This dataset summarizes the raw data from the UCI study. The raw data contains time series sequences of measurements of acceleration and angular velocity (in 3 dimensions) from individual subjects engaged in various activities. The mean value and standard deviation for each sequence of measured values (over some time window) are also included. Corresponding frequency domain values (obtained by Fourier transform) are also included.
 
-A more detailed description of the raw data can be found in the file README.txt in the UCIdocs subdirectory of this repository.
+A more detailed description of the raw data can be found [here](https://github.com/cklopfenstein/getting-data-project/blob/master/UCIdocs/README.txt) (README.txt in the UCIdocs subdirectory of this repository).
+
 
 This dataset contains the average values of the means and standard deviations of each observed variable, for each unique combination of subject and activity.
 
-Variable names prefixed with t refer to the time series measurements, while names prefixed with f refer to the frequency domain values.
+Variable names prefixed with *t* refer to the time series measurements, while names prefixed with *f* refer to the frequency domain values.
 
+Units: all features are normalized, and bounded within [-1, 1].
 
 ####List of variable names
 

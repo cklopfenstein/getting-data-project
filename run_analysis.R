@@ -30,7 +30,7 @@ rm(subject_train)
 features <- read.table("features.txt", header = FALSE, sep ="")
 feature_names <- make.names(features[,2])
 colnames(X_all) <- feature_names
-# read the activity labels into a vector
+# read the activity labels into a vector/factor
 labels <- read.table("activity_labels.txt", header = FALSE, sep ="")
 # convert list of activity numbers to labels
 labels_all <- left_join(labels, y_all)
@@ -50,10 +50,10 @@ colnames(X_all) <- gsub(".mean..", "Mean", colnames(X_all))
 colnames(X_all) <- gsub(".std..", "Std", colnames(X_all))
 # group measurement data by subject ID and activity
 X_all <- group_by(X_all, subjectID, activity)
-# this might be correct - result is 35 rows of 68 values
-# each subject appears, but not all activities for each subject
-means <- X_all %>% group_by(subjectID, activity)
-result <- (means %>% summarise_each(funs(mean)))
+# find mean values for all columns, grouped by subject and activity
+# note that each subject appears, but not all activities for each subject
+groups <- X_all %>% group_by(subjectID, activity)
+means <- (groups %>% summarise_each(funs(mean)))
 #
 # write out the resulting table
-write.table(result, file = "UCI-HAR-tidy-data.txt", row.names = FALSE)
+write.table(means, file = "UCI-HAR-tidy-data.txt", row.names = FALSE)

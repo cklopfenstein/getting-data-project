@@ -4,7 +4,7 @@ getting-data-project repository  - an assignment for the Coursera "Getting and C
 
 ###Contents
 
-1. **run_analysis.R** - an R script to analyze Samsung data (Human Activity Recognition Using Smartphones). This script reads raw data files from the UCI HAR study and produces a tidy data text file called "UCI-HAR-tidy-data.txt".
+1. **run_analysis.R** - an R script to analyze Samsung data (Human Activity Recognition Using Smartphones). This script reads raw data files from the UCI HAR study and produces a tidy data text file called "UCI-HAR-tidy-data.txt". The output file can be manipulated in R or viewed directly using a spreadsheet program such as MS Excel or LibreOffice Calc.
 
     The steps in the analysis are:
     
