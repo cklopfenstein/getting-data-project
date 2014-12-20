@@ -52,8 +52,6 @@ colnames(X_all) <- gsub(".std..", "Std", colnames(X_all))
 X_all <- group_by(X_all, subjectID, activity)
 # find mean values for all columns, grouped by subject and activity
 # note that each subject appears, but not all activities for each subject
-groups <- X_all %>% group_by(subjectID, activity)
-means <- (groups %>% summarise_each(funs(mean)))
-#
+means <- X_all %>% summarise_each(funs(mean))
 # write out the resulting table
 write.table(means, file = "UCI-HAR-tidy-data.txt", row.names = FALSE)
