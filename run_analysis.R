@@ -42,6 +42,12 @@ colnames(X_all)[2] <- "activity"
 # select the columns we want: means (not meanFreq) and standard deviations,
 # plus the subject ID and activity label
 X_all <- X_all[,grepl("((mean|std)\\.|subjectID|activity)", colnames(X_all))]
+# tidy up variable/column names
+colnames(X_all) <- gsub("fBodyBody", "fBody", colnames(X_all))
+colnames(X_all) <- gsub(".mean...", "Mean", colnames(X_all))
+colnames(X_all) <- gsub(".std...", "Std", colnames(X_all))
+colnames(X_all) <- gsub(".mean..", "Mean", colnames(X_all))
+colnames(X_all) <- gsub(".std..", "Std", colnames(X_all))
 # group measurement data by subject ID and activity
 X_all <- group_by(X_all, subjectID, activity)
 # this might be correct - result is 35 rows of 68 values
