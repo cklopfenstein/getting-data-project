@@ -8,7 +8,19 @@ This dataset summarizes the raw data from the UCI study. The raw data contains t
 A more detailed description of the raw data can be found [here](https://github.com/cklopfenstein/getting-data-project/blob/master/UCIdocs/README.txt) (README.txt in the UCIdocs subdirectory of this repository).
 
 
-This dataset contains the average values of the means and standard deviations of each observed variable, for each unique combination of subject and activity.
+This dataset contains the average values of the means and standard deviations of each observed variable, for each unique combination of subject and activity. 
+
+This summary data is produced using an R script, [run_analysis.R](https://github.com/cklopfenstein/getting-data-project/blob/master/run_analysis.R). The steps in the analysis are:
+    
+* Read the raw data files into data tables - X_test.txt, X_train.txt (test and training sets of the measurements), y_test.txt, y_train.txt (activity codes), subject_test.txt, subject_train.txt (subject IDs). Also read activity_label.txt, which gives the list of activity labels, and features.txt, which gives the variable names for the 561 variables in the raw data.
+* Merge the test and training sets (for X, y and subject) by appending rows.
+* Assign text labels for activities and column names, from activity_label.txt and features.txt.
+* Add subject IDs and activity labels to the table of measurements.
+* Select the columns for analysis: here we just want the means and standard deviations of the various measurements.
+* Group measurements by subject and activity.
+* Find the average value of each variable for each combination of subject and activity.
+* Write the resulting table to a text file.
+
 
 Variable names prefixed with *t* refer to the time series measurements, while names prefixed with *f* refer to the frequency domain values.
 
