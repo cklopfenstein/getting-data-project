@@ -33,7 +33,7 @@ colnames(X_all) <- feature_names
 # read the activity labels into a vector/factor
 labels <- read.table("activity_labels.txt", header = FALSE, sep ="")
 # convert list of activity numbers to labels
-labels_all <- left_join(labels, y_all)
+labels_all <- inner_join(labels, y_all)
 # add subject IDs and activity labels to the table of measurements
 X_all <- cbind(labels_all[2], X_all)
 X_all <- cbind(subject_all, X_all)
