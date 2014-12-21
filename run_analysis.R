@@ -51,7 +51,6 @@ colnames(X_all) <- gsub(".std..", "Std", colnames(X_all))
 # group measurement data by subject ID and activity
 X_all <- group_by(X_all, subjectID, activity)
 # find mean values for all columns, grouped by subject and activity
-# note that each subject appears, but not all activities for each subject
 means <- X_all %>% summarise_each(funs(mean))
 # write out the resulting table
 write.table(means, file = "UCI-HAR-tidy-data.txt", row.names = FALSE)
